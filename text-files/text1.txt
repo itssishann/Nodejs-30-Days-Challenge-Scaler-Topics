@@ -1,0 +1,2 @@
+Data Written Through Fs Module 
+Day 02 Done!
