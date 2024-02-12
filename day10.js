@@ -12,6 +12,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', staticFileServer);
 
-app.listen(3000, () => {
-  console.log('Server listening at --> http://localhost:3000');
+app.listen(8080, () => {
+  console.log('Server listening at --> http://localhost:8080');
 });
