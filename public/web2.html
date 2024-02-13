@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #messages {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    #sentMessages {
+      background-color: #e6f7ff;
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+
+    #receivedMessages {
+      background-color: #f0f0f0;
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+      padding: 5px;
+      margin-right: 5px;
+    }
+
+    button {
+      padding: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">WebSocket Example</h1>
+  <div id="messages"></div>
+  <input type="text" id="messageInput" placeholder="Type a message">
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    const socket = new WebSocket(`ws://${window.location.host}`);
+
+    socket.addEventListener('open', (event) => {
+      console.log('WebSocket connection opened');
+     
+      socket.send('Hello, WebSocket!');
+    });
+
+    socket.addEventListener('message', (event) => {
+      console.log(`Received message: ${event.data}`);
+      displayReceivedMessage(event.data);
+    });
+
+    socket.addEventListener('close', (event) => {
+      console.log('WebSocket connection closed');
+    });
+
+    function sendMessage() {
+      const inputElement = document.getElementById('messageInput');
+      const message = inputElement.value;
+
+      if (message.trim() !== '') {
+        socket.send(message);
+        displaySentMessage(message);
+        inputElement.value = '';
+      }
+    }
+
+    function displaySentMessage(message) {
+      const messagesElement = document.getElementById('messages');
+      const sentMessagesElement = document.createElement('div');
+      sentMessagesElement.id = 'sentMessages';
+      sentMessagesElement.textContent = `Sent: ${message}`;
+      messagesElement.appendChild(sentMessagesElement);
+    }
+
+    function displayReceivedMessage(message) {
+      const messagesElement = document.getElementById('messages');
+      const receivedMessagesElement = document.createElement('div');
+      receivedMessagesElement.id = 'receivedMessages';
+      receivedMessagesElement.textContent = `Received: ${message}`;
+      messagesElement.appendChild(receivedMessagesElement);
+    }
+  </script>
+</body>
+</html>

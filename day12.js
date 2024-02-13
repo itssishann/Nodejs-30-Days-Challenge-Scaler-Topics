@@ -23,7 +23,7 @@ function rateLimitMiddleware(req, res, next) {
 
 app.use(rateLimitMiddleware);
 app.get('/', (req, res) => {
-  res.send('Welcome to the homepage!');
+  res.send('<h1>Welcome to the homepage!</h1>');
 });
 
 const PORT = process.env.port || 4040;
