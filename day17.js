@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-const User = mongoose.model('User', userSchema);
+ const User = mongoose.model('User', userSchema);
 
 mongoose.connect(`${process.env.MONGO_URL}day17-DB`, {
   useNewUrlParser: true,
@@ -32,10 +32,11 @@ async function addUserToDatabase(user) {
     });
     await newUser.save();
 
-    console.log('User added successfully:', newUser);
+    // console.log('User added successfully:', newUser); comment because in day18 it is logging users
   } catch (error) {
     console.error('Error adding user to database:', error.message);
   }
 }
 
 addUserToDatabase({ username: 'john doe', email: 'john@example.com' });
+module.exports= User
