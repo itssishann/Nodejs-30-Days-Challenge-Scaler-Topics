@@ -1,9 +1,19 @@
 const mongoose = require('mongoose');
 
+// category schema 
+const categorySchema = new mongoose.Schema({
+  name: String,
+});
+const Category = mongoose.model('Category', categorySchema);
+
 const productSchema = new mongoose.Schema({
   name: String,
   price: Number,
   quantity: Number,
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category" // This references the Category model
+  }
 });
 
 const Product = mongoose.model('Product', productSchema);
@@ -50,9 +60,20 @@ async function deleteProduct(productId) {
   }
 }
 
+async function getProductsPopulatedWithCategory() {
+  try {
+   
+    const products = await Product.find({}).populate('category').exec();
+    return products;
+  } catch (error) {
+    throw new Error('Failed to retrieve products with populated category details');
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  getProductsPopulatedWithCategory
 };

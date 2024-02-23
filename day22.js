@@ -7,7 +7,7 @@ const {getAllProducts} =   require ("./models/product")
 const {updateProduct}  =  require("./models/product")
 const {deleteProduct}  =  require("./models/product")
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
 
 
 mongoose.connect(`${process.env.MONGO_URL}Day22`)
