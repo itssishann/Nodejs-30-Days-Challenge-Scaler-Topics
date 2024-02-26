@@ -1,11 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const { getProductsPopulatedWithCategory } = require('./models/category');
+const { getProductsPopulatedWithCategory } = require('./models/product'); // fixed issue
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 
 app.use(bodyParser.json());
 
@@ -26,6 +25,7 @@ app.get('/products', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
